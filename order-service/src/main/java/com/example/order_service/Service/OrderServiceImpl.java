@@ -1,11 +1,13 @@
 package com.example.order_service.Service;
 
 import com.example.order_service.DTO.OrderDTO;
+import com.example.order_service.DTO.ProductDTO;
 import com.example.order_service.Entity.Order;
 import com.example.order_service.Repository.OrderRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,8 +17,12 @@ public class OrderServiceImpl implements OrderService{
 
     @Autowired
     private OrderRepository orderRepository;
+
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public OrderDTO createOrder(OrderDTO orderDTO) {
@@ -49,5 +55,11 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public void deleteOrderById(Long id) {
         orderRepository.deleteById(id);
+    }
+
+    @Override
+    public ProductDTO getProductById(Long productId) {
+        String url = "http://product-service/api/products/getById/" + productId;
+        return restTemplate.getForObject(url, ProductDTO.class);
     }
 }

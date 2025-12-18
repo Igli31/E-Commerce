@@ -1,6 +1,7 @@
 package com.example.order_service.Controller;
 
 import com.example.order_service.DTO.OrderDTO;
+import com.example.order_service.DTO.ProductDTO;
 import com.example.order_service.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,5 +45,10 @@ public class OrderController {
     ResponseEntity<Void> deleteOrderById(@PathVariable Long id){
         orderService.deleteOrderById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/product/{id}")
+    public ProductDTO getProductById(@PathVariable Long id){
+        return orderService.getProductById(id);
     }
 }

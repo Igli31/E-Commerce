@@ -1,6 +1,7 @@
 package com.example.order_service.Service;
 
 import com.example.order_service.DTO.OrderDTO;
+import com.example.order_service.DTO.ProductDTO;
 
 import java.util.List;
 
@@ -11,4 +12,5 @@ public interface OrderService {
     List<OrderDTO> getAllOrders();
     OrderDTO updateOrder(Long id, OrderDTO orderDTO);
     void deleteOrderById(Long id);
+    ProductDTO getProductById(Long productId);
 }
