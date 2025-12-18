@@ -1,10 +1,7 @@
 package com.example.order_service.Entity;
 
 import com.example.order_service.Enum.OrderStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -12,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
+@Table(name = "orders")
 public class Order {
 
     @Id
