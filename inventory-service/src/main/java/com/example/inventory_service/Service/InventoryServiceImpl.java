@@ -1,11 +1,13 @@
 package com.example.inventory_service.Service;
 
 import com.example.inventory_service.DTO.InventoryDTO;
+import com.example.inventory_service.DTO.ProductDTO;
 import com.example.inventory_service.Entity.Inventory;
 import com.example.inventory_service.Repository.InventoryRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +20,9 @@ public class InventoryServiceImpl implements InventoryService{
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public InventoryDTO createInventory(InventoryDTO inventoryDTO) {
@@ -52,4 +57,22 @@ public class InventoryServiceImpl implements InventoryService{
     public void delteInventoryById(Long id) {
         inventoryRepository.deleteById(id);
     }
+
+    @Override
+    public ProductDTO getProductById(Long productId) {
+        String url = "http://product-service/api/products/getById/" + productId;
+        return restTemplate.getForObject(url, ProductDTO.class);
+    }
+
+    @Override
+    public boolean isProductAvailable(Long productId, int requestedAmount) {
+        ProductDTO product = getProductById(productId);
+
+        if(product == null){
+            return false;
+        }
+        return product.getStock() != null && product.getStock() >= requestedAmount;
+    }
+
+
 }

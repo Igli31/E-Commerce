@@ -1,6 +1,7 @@
 package com.example.inventory_service.Controller;
 
 import com.example.inventory_service.DTO.InventoryDTO;
+import com.example.inventory_service.DTO.ProductDTO;
 import com.example.inventory_service.Service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,5 +45,16 @@ public class InventoryController {
     ResponseEntity<Void> deleteInventoryById(@PathVariable Long id){
         inventoryService.delteInventoryById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/product/{id}")
+    public ProductDTO getProductById(@PathVariable Long id){
+        return inventoryService.getProductById(id);
+    }
+
+    @GetMapping("/checkAvailability/{productId}")
+    ResponseEntity<Boolean> isProductAvailable(Long productId, int requestedAmount){
+        boolean isAvailable = inventoryService.isProductAvailable(productId, requestedAmount);
+        return new ResponseEntity<>(isAvailable, HttpStatus.OK);
     }
 }
