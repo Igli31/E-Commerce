@@ -74,5 +74,17 @@ public class InventoryServiceImpl implements InventoryService{
         return product.getStock() != null && product.getStock() >= requestedAmount;
     }
 
+    @Override
+    public boolean isProductAvailableByName(String productName, int requestedAmount) {
+        String url = "http://product-service/api/products/getByName/" + productName;
+        ProductDTO product = restTemplate.getForObject(url, ProductDTO.class);
+
+        if (product == null || product.getStock() == null){
+            return false;
+        }
+
+        return product.getStock() >= requestedAmount;
+    }
+
 
 }

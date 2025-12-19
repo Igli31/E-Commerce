@@ -14,4 +14,5 @@ public interface InventoryService {
     void delteInventoryById(Long id);
     ProductDTO getProductById(Long productId);
     boolean isProductAvailable(Long productId, int requestedAmount);
+    boolean isProductAvailableByName(String productName, int requestedAmount);
 }

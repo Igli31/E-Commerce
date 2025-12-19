@@ -11,4 +11,6 @@ public interface ProductService {
     List<ProductDTO> getAllProducts();
     ProductDTO updateProduct(Long id, ProductDTO productDTO);
     void deleteProductById(Long id);
+
+    ProductDTO getProductByName(String name);
 }

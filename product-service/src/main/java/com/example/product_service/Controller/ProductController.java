@@ -45,4 +45,9 @@ public class ProductController {
         productService.deleteProductById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/getByName/{name}")
+    public ProductDTO getProductByName(@PathVariable String name) {
+        return productService.getProductByName(name);
+    }
 }

@@ -51,4 +51,10 @@ public class ProductServiceImpl implements ProductService{
     public void deleteProductById(Long id) {
         productRepository.deleteById(id);
     }
+
+    @Override
+    public ProductDTO getProductByName(String name) {
+        Product product = productRepository.findProductByName(name);
+        return modelMapper.map(product, ProductDTO.class);
+    }
 }

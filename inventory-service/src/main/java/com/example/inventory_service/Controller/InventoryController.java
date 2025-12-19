@@ -53,8 +53,14 @@ public class InventoryController {
     }
 
     @GetMapping("/checkAvailability/{productId}")
-    ResponseEntity<Boolean> isProductAvailable(Long productId, int requestedAmount){
+    ResponseEntity<Boolean> isProductAvailable(@PathVariable Long productId, @RequestParam int requestedAmount){
         boolean isAvailable = inventoryService.isProductAvailable(productId, requestedAmount);
+        return new ResponseEntity<>(isAvailable, HttpStatus.OK);
+    }
+
+    @GetMapping("/checkAvailability/{productName}/requestedAmount")
+    ResponseEntity<Boolean> isProductAvailableByName(@PathVariable String productName, @PathVariable int requestedAmount){
+        boolean isAvailable = inventoryService.isProductAvailableByName(productName, requestedAmount);
         return new ResponseEntity<>(isAvailable, HttpStatus.OK);
     }
 }
